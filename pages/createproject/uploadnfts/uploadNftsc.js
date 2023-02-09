@@ -129,6 +129,7 @@ function UploadNftsc({ handleNext, handleImageChange, selectedImage }) {
                 <div className="uparrow">
                   <BsPlusLg />
                 </div>
+
                 <input
                   type="file"
                   id="myFile"
@@ -152,6 +153,7 @@ function UploadNftsc({ handleNext, handleImageChange, selectedImage }) {
                 Drag & drop files or folders here, <br />
                 or click to select files.
               </span>
+
               <Box
                 sx={{
                   display: "flex",
@@ -181,6 +183,7 @@ function UploadNftsc({ handleNext, handleImageChange, selectedImage }) {
             }}
           >
             <p>Requirements</p>
+
             <ul>
               <li>
                 Files <span>must</span> contain one .csv or .json file with{" "}
@@ -207,6 +210,7 @@ function UploadNftsc({ handleNext, handleImageChange, selectedImage }) {
               </li>
             </ul>
           </Box>
+
           <Box>
             <p>Options</p>
             <ul>

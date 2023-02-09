@@ -140,27 +140,35 @@ function Uploadnftvideo({
   setAddStory,
   addStory,
   selectedImage,
+
+  nftName,
+  addUntility,
+  tags,
 }) {
   const router = useRouter();
+
   const handleSubmitAllData = async (e) => {
     e.preventDefault();
     const allData = {
+      nftName,
+      addUntility,
       addStory,
+      tags,
       selectedVideoUrl,
       selectedImage,
     };
-    console.log("AllNftData:", allData);
+
     try {
       const { data } = await axios({
         url: "/api/uploadNftData",
         method: "POST",
         data: allData,
       });
-      console.log("response Data", data);
+
+      router.push("/template/marketplace");
     } catch (error) {
       console.log("Error", error);
     }
-    router.push("/template/marketplace");
   };
   return (
     <>
@@ -190,6 +198,7 @@ function Uploadnftvideo({
                 <span>Upload Sales video (not required)</span>
               </div>
             </Box>
+
             <Box>
               <span>Add Story (not required):</span>
               <textarea
@@ -226,6 +235,7 @@ function Uploadnftvideo({
             >
               <IoIosArrowDropleftCircle />
             </Button>
+
             <Button
               type="submit"
               sx={{
@@ -246,6 +256,7 @@ function Uploadnftvideo({
             </Button>
           </Box>
         </Form>
+
         <Box
           sx={{
             border: "2px solid #BEBEBE",

@@ -1,8 +1,10 @@
 import styled from "@emotion/styled";
 import Image from "next/image";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import shadow from "../images/shadow.svg";
 import TemplateHeader from "./templateheader";
+import axios from "axios";
+
 const Main = styled.div`
   background: #fff;
 `;
@@ -22,6 +24,23 @@ const ShadowImg = styled.div`
   }
 `;
 function index() {
+  const [edits, setEdits] = useState(null);
+
+  useEffect(() => {
+    const fetchMe = async () => {
+      let { data } = await axios({
+        url: "/api/editHomePageData",
+        method: "GET",
+      });
+
+      console.log(data);
+
+      setEdits(data);
+    };
+
+    fetchMe();
+  }, []);
+
   return (
     <Main>
       <Templatepage>

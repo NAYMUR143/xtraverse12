@@ -103,9 +103,9 @@ function Nftdetails({
   nftName,
   addUntility,
   setAddUntility,
-}) {
-  console.log(selectedImage);
 
+  setTags,
+}) {
   return (
     <>
       <Box
@@ -145,7 +145,13 @@ function Nftdetails({
               }}
             >
               <span>Add Tag(not required)</span>
-              <input type="text" placeholder="Ex:Cats, Dogs, Fruits" />
+              <input
+                onChange={(e) =>
+                  setTags(e.target.value.split(",").map((itm) => itm.trim()))
+                }
+                type="text"
+                placeholder="Ex:Cats, Dogs, Fruits"
+              />
             </Box>
           </Box>
 

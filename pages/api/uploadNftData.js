@@ -1,10 +1,16 @@
 const { log } = console;
+let nftData = {};
+
 export default function teamAdd(req, res) {
   if (req.method === "POST") {
-    const nftData = req.body;
-    log("Req payload", nftData);
+    nftData = req.body;
     res.json(nftData);
   }
+
+  if (req.method === "GET") {
+    res.json(nftData);
+  }
+
   return res.status(500).json({
     msg: "this needs to be post request",
   });

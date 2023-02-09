@@ -167,6 +167,9 @@ function index() {
     setSelectedImage();
   };
 
+  //for tags
+  const [tags, setTags] = useState([]);
+
   const layouts = [
     <UploadNftsc
       handleNext={handleNext}
@@ -182,6 +185,7 @@ function index() {
       nftName={nftName}
       addUntility={addUntility}
       setAddUntility={setAddUntility}
+      setTags={setTags}
     />,
     <Uploadnftvideo
       handlePrev={handlePrev}
@@ -190,6 +194,9 @@ function index() {
       setAddStory={setAddStory}
       addStory={addStory}
       selectedImage={selectedImage}
+      nftName={nftName}
+      addUntility={addUntility}
+      tags={tags}
     />,
   ];
   return (
