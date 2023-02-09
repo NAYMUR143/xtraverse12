@@ -53,7 +53,7 @@ function Subscrition() {
               color: "#fff",
             }}
           >
-            Yep, I'm done
+            Yep, I&apos;m done
           </Button>
         </Box>
       </Account>

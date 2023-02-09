@@ -3,11 +3,12 @@ import { ImageContext } from "../index";
 
 const AnotherPage = () => {
   const context = useContext(ImageContext);
+  const [imageData, setImageData] = useState(null);
+
   if (!context) {
     return <div>Loading...</div>;
   }
 
-  const [imageData, setImageData] = useState(null);
   const { image } = context;
 
   if (image && !imageData) {

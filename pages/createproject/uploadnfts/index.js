@@ -116,7 +116,7 @@ const FormInput = styled.div`
   }
 `;
 
-function index() {
+function Index() {
   const [index, setIndex] = useState(0);
 
   const handleNext = () => {
@@ -176,6 +176,7 @@ function index() {
       handleImageChange={handleImageChange}
       selectedImage={selectedImage}
       removeSelectedImage={removeSelectedImage}
+      key={12}
     />,
     <Nftdetails
       handleNext={handleNext}
@@ -186,6 +187,7 @@ function index() {
       addUntility={addUntility}
       setAddUntility={setAddUntility}
       setTags={setTags}
+      key={13}
     />,
     <Uploadnftvideo
       handlePrev={handlePrev}
@@ -197,6 +199,7 @@ function index() {
       nftName={nftName}
       addUntility={addUntility}
       tags={tags}
+      key={14}
     />,
   ];
   return (
@@ -212,4 +215,4 @@ function index() {
   );
 }
 
-export default index;
+export default Index;

@@ -23,7 +23,7 @@ const ShadowImg = styled.div`
     height: 100%;
   }
 `;
-function index() {
+function Index() {
   const [edits, setEdits] = useState(null);
 
   useEffect(() => {
@@ -53,4 +53,4 @@ function index() {
   );
 }
 
-export default index;
+export default Index;

@@ -11,7 +11,7 @@ const Main = styled.main`
   padding: 30px;
 `;
 
-const index = () => {
+const Index = () => {
   const [image, setImage] = useState(null);
   const handleImageChange = (e) => {
     setImage(e.target.files[0]);
@@ -28,4 +28,4 @@ const index = () => {
   );
 };
 
-export default index;
+export default Index;

@@ -176,7 +176,7 @@ const InputSc = styled.div`
     }
   }
 `;
-function page() {
+function Page() {
   const [index, setIndex] = useState(0);
 
   const handleNext = () => {
@@ -186,11 +186,11 @@ function page() {
     setIndex(index === 0 ? layouts.length - 1 : index - 1);
   };
   const layouts = [
-    <WaitinList handleNext={handleNext} />,
-    <VerifyMail handleNext={handleNext} />,
-    <Follow handleNext={handleNext} />,
-    <ConnectWallet handleNext={handleNext} />,
-    <Thankyou />,
+    <WaitinList handleNext={handleNext} key={12} />,
+    <VerifyMail handleNext={handleNext} key={13} />,
+    <Follow handleNext={handleNext} key={14} />,
+    <ConnectWallet handleNext={handleNext} key={15} />,
+    <Thankyou key={16} />,
   ];
   return (
     <>
@@ -516,4 +516,4 @@ function Thankyou() {
     </>
   );
 }
-export default page;
+export default Page;

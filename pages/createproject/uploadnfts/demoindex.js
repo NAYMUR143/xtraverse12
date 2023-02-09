@@ -122,7 +122,7 @@ const Requirements = styled.div`
     }
   }
 `;
-function index() {
+function Index() {
   const [image, setImage] = useState(null);
   const [imageUrl, setImageUrl] = useState("");
   const handleImageChange = (event) => {
@@ -221,4 +221,4 @@ function index() {
   );
 }
 
-export default index;
+export default Index;

@@ -65,7 +65,7 @@ const SliderSec = styled.div`
   }
 `;
 
-function index() {
+function Index() {
   const settings = {
     dots: false,
     infinite: true,
@@ -109,4 +109,4 @@ function index() {
   );
 }
 
-export default index;
+export default Index;

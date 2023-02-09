@@ -127,7 +127,7 @@ const Select_box_container = styled.div`
   }
 `;
 
-function index() {
+function Index() {
   const [sldIndex, setSldIndex] = useState(0);
   const [edits_data, setEdits_data] = useState({});
 
@@ -164,12 +164,12 @@ function index() {
   };
 
   const layouts = [
-    <UpdateBlurs handleNext={handleNext} add_data={add_data} />,
-    <UploadLogo handleNext={handleNext} add_data={add_data} />,
-    <SetHeadingSummary handleNext={handleNext} add_data={add_data} />,
-    <UpdateHeroImg handleNext={handleNext} add_data={add_data} />,
-    <SelectNfts handleNext={handleNext} add_data={add_data} />,
-    <FaqSec add_data={add_data} edits_data={edits_data} />,
+    <UpdateBlurs handleNext={handleNext} add_data={add_data} key={12} />,
+    <UploadLogo handleNext={handleNext} add_data={add_data} key={13} />,
+    <SetHeadingSummary handleNext={handleNext} add_data={add_data} key={14} />,
+    <UpdateHeroImg handleNext={handleNext} add_data={add_data} key={15} />,
+    <SelectNfts handleNext={handleNext} add_data={add_data} key={16} />,
+    <FaqSec add_data={add_data} edits_data={edits_data} key={17} />,
   ];
   return (
     <>
@@ -782,4 +782,4 @@ function FaqSec({ add_data, edits_data }) {
     </>
   );
 }
-export default index;
+export default Index;

@@ -36,7 +36,7 @@ const Herosec = styled.section`
     color: #000;
   }
 `;
-function page(props) {
+function Page(props) {
   const [data, setData] = useState(null);
   const [isLoading, setLoading] = useState(false);
 
@@ -101,4 +101,4 @@ function page(props) {
   );
 }
 
-export default page;
+export default Page;

@@ -146,9 +146,10 @@ function Nftdetails({
             >
               <span>Add Tag(not required)</span>
               <input
-                onChange={(e) =>
-                  setTags(e.target.value.split(",").map((itm) => itm.trim()))
-                }
+                onChange={(e) => {
+                  let arr = e.target.value.split(",").map((itm) => itm.trim());
+                  setTags(arr);
+                }}
                 type="text"
                 placeholder="Ex:Cats, Dogs, Fruits"
               />

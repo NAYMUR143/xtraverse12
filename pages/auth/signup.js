@@ -143,8 +143,9 @@ function Signup({ signuphandleClose, signupOpen, signInhandleClickOpen }) {
       handleNext={handleNext}
       signuphandleClose={signuphandleClose}
       signInhandleClickOpen={signInhandleClickOpen}
+      key={12}
     />,
-    <Step2 handlePrev={handlePrev} />,
+    <Step2 handlePrev={handlePrev} key={13} />,
   ];
 
   return (
