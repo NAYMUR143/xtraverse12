@@ -2,6 +2,8 @@ import styled from "@emotion/styled";
 import { Box } from "@mui/system";
 import React, { useState, useEffect } from "react";
 import TemplateHeader from "../templateheader";
+import axios from "axios";
+
 const Main = styled.div`
   background: #fff;
 `;
@@ -15,34 +17,49 @@ const Herosec = styled.section`
   width: 100%;
   height: 100%;
   display: block;
+
+  p {
+    color: #000;
+  }
+
+  img {
+    width: 200px;
+    height: auto;
+  }
+
+  video {
+    width: 200px;
+    height: auto;
+  }
+
+  li {
+    color: #000;
+  }
 `;
 function page(props) {
   const [data, setData] = useState(null);
   const [isLoading, setLoading] = useState(false);
+
   useEffect(() => {
     setLoading(true);
-    fetch("/api/uploadNftData", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({}),
-    })
-      .then((res) => {
-        console.log(res);
-        return res.json();
-      })
-      .then((data) => {
-        console.log(data);
-        setData(data);
-        setLoading(false);
-      })
-      .catch((error) => {
-        console.log(error);
+
+    const fetchMe = async () => {
+      let { data } = await axios({
+        url: "/api/uploadNftData",
+        method: "GET",
       });
+
+      setData(data);
+
+      setLoading(false);
+    };
+
+    fetchMe();
   }, []);
+
   if (isLoading) return <p>Loading...</p>;
   if (!data) return <p>No profile data</p>;
+
   return (
     <>
       <Main>
@@ -57,10 +74,26 @@ function page(props) {
                 width: "200px",
                 margin: "80px",
               }}
-            >
-              <h1 style={{ color: "#fff" }}>{data.addStory}</h1>
-              <p style={{ color: "#fff" }}>{data.selectedVideoUrl}</p>
-            </Box>
+            ></Box>
+            <p>{data.nftName}</p>
+            <br />
+            <br />
+            <p>{data.addUntility}</p>
+            <br />
+            <br />
+            <p>{data.addStory}</p>
+            <br />
+            <br />
+            <ul>
+              <p>tags</p>
+              {data.tags.map((itm, i) => (
+                <li key={i}>{itm}</li>
+              ))}
+            </ul>
+            <img src={data.selectedImage} alt="temp_image" />
+            <br />
+            <br />
+            <video src={data.selectedVideoUrl} controls></video>
           </Herosec>
         </Templatepage>
       </Main>

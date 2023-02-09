@@ -8,6 +8,8 @@ import Image from "next/image";
 import { Button } from "@mui/material";
 import { Box } from "@mui/system";
 import Nftnav from "../nftnav";
+import axios from "axios";
+
 const Main = styled.main`
   background: #1f1f1f;
   height: 100vh;
@@ -127,21 +129,47 @@ const Select_box_container = styled.div`
 
 function index() {
   const [sldIndex, setSldIndex] = useState(0);
-  const [step, setStep] = useState("Step 1");
-  const [wheelColorData, setWheelColorData] = useState();
+  const [edits_data, setEdits_data] = useState({});
+
   const handleNext = () => {
     setSldIndex(index === layouts.length - 1 ? 0 : sldIndex + 1);
   };
   const handlePrev = () => {
     setSldIndex(index === 0 ? layouts.length - 1 : sldIndex - 1);
   };
+
+  const add_data = (data, from, data_position) => {
+    if (from === "blur") {
+      setEdits_data({
+        ...edits_data,
+        [from]: { ...edits_data[from], [data_position]: data },
+      });
+    } else if (from === "logo") {
+      setEdits_data({ ...edits_data, [from]: data });
+    } else if (from === "heading") {
+      setEdits_data({ ...edits_data, [from]: data });
+    } else if (from === "summary") {
+      setEdits_data({ ...edits_data, [from]: data });
+    } else if (from === "image") {
+      console.log(data);
+      setEdits_data({
+        ...edits_data,
+        [from]: { ...edits_data[from], [data_position]: data },
+      });
+    } else if (from === "small_nft") {
+      setEdits_data({ ...edits_data, [from]: [data] });
+    } else if (from === "faq_sec") {
+      setEdits_data({ ...edits_data, [from]: [data] });
+    }
+  };
+
   const layouts = [
-    <UpdateBlurs handleNext={handleNext} wheelColorData={wheelColorData} />,
-    <UploadLogo handleNext={handleNext} />,
-    <SetHeadingSummary handleNext={handleNext} />,
-    <UpdateHeroImg handleNext={handleNext} />,
-    <SelectNfts handleNext={handleNext} />,
-    <FaqSec />,
+    <UpdateBlurs handleNext={handleNext} add_data={add_data} />,
+    <UploadLogo handleNext={handleNext} add_data={add_data} />,
+    <SetHeadingSummary handleNext={handleNext} add_data={add_data} />,
+    <UpdateHeroImg handleNext={handleNext} add_data={add_data} />,
+    <SelectNfts handleNext={handleNext} add_data={add_data} />,
+    <FaqSec add_data={add_data} edits_data={edits_data} />,
   ];
   return (
     <>
@@ -154,7 +182,7 @@ function index() {
 }
 
 // update blurs
-function UpdateBlurs({ handleNext, wheelColorData }) {
+function UpdateBlurs({ handleNext, add_data }) {
   return (
     <>
       <Wrapper>
@@ -176,6 +204,9 @@ function UpdateBlurs({ handleNext, wheelColorData }) {
                 Blur 1
               </label>
               <input
+                onChange={(e) => {
+                  add_data(e.target.value, "blur", 1);
+                }}
                 type="text"
                 required
                 placeholder="
@@ -189,6 +220,9 @@ function UpdateBlurs({ handleNext, wheelColorData }) {
               </label>
 
               <input
+                onChange={(e) => {
+                  add_data(e.target.value, "blur", 2);
+                }}
                 type="text"
                 required
                 placeholder="
@@ -202,6 +236,9 @@ function UpdateBlurs({ handleNext, wheelColorData }) {
               </label>
 
               <input
+                onChange={(e) => {
+                  add_data(e.target.value, "blur", 3);
+                }}
                 type="text"
                 required
                 placeholder="
@@ -251,12 +288,17 @@ function UpdateBlurs({ handleNext, wheelColorData }) {
   );
 }
 // upload logo
-function UploadLogo({ handleNext }) {
+function UploadLogo({ handleNext, add_data }) {
   const [selectedImage, setSelectedImage] = useState();
+  const [selectedImageUrl, setSelectedImageUrl] = useState();
 
   const imageChange = (e) => {
     if (e.target.files && e.target.files.length > 0) {
+      const objUrl = URL.createObjectURL(e.target.files[0]);
       setSelectedImage(e.target.files[0]);
+
+      setSelectedImageUrl(objUrl);
+      add_data(objUrl, "logo", 1);
     }
   };
   return (
@@ -332,7 +374,7 @@ function UploadLogo({ handleNext }) {
   );
 }
 // update SetHeadingSummary
-function SetHeadingSummary({ handleNext }) {
+function SetHeadingSummary({ handleNext, add_data }) {
   return (
     <>
       <Wrapper>
@@ -348,6 +390,9 @@ function SetHeadingSummary({ handleNext }) {
           >
             <label htmlFor="heading">Heading</label>
             <input
+              onChange={(e) => {
+                add_data(e.target.value, "heading", 1);
+              }}
               type="text"
               id="heading"
               required
@@ -361,6 +406,9 @@ function SetHeadingSummary({ handleNext }) {
           >
             <label htmlFor="Summary">Summary</label>
             <input
+              onChange={(e) => {
+                add_data(e.target.value, "summary", 1);
+              }}
               type="text"
               id="Summary"
               required
@@ -416,7 +464,23 @@ function SetHeadingSummary({ handleNext }) {
   );
 }
 // update heor img
-function UpdateHeroImg({ handleNext }) {
+function UpdateHeroImg({ handleNext, add_data }) {
+  const [selectedImage1, setSelectedImage1] = useState();
+  const [selectedImage2, setSelectedImage2] = useState();
+  const [selectedImage3, setSelectedImage3] = useState();
+
+  const imageChange = (e, position) => {
+    if (e.target.files && e.target.files.length > 0) {
+      const objUrl = URL.createObjectURL(e.target.files[0]);
+
+      position === 1 && setSelectedImage1(objUrl);
+      position === 2 && setSelectedImage2(objUrl);
+      position === 3 && setSelectedImage3(objUrl);
+
+      add_data(objUrl, "image", position);
+    }
+  };
+
   return (
     <>
       <Wrapper>
@@ -433,25 +497,28 @@ function UpdateHeroImg({ handleNext }) {
             }}
           >
             <input
-              type="number"
+              type="file"
               required
-              placeholder="
-            1
-              "
+              placeholder="image 1"
+              onChange={(e) => {
+                imageChange(e, 1);
+              }}
             />
             <input
-              type="number"
+              type="file"
               required
-              placeholder="
-            1
-              "
+              placeholder="image 2"
+              onChange={(e) => {
+                imageChange(e, 2);
+              }}
             />
             <input
-              type="number"
+              type="file"
               required
-              placeholder="
-            1
-              "
+              placeholder="image 3"
+              onChange={(e) => {
+                imageChange(e, 3);
+              }}
             />
           </Box>
           <Button
@@ -495,7 +562,7 @@ function UpdateHeroImg({ handleNext }) {
   );
 }
 //select nfts
-function SelectNfts({ handleNext }) {
+function SelectNfts({ handleNext, add_data }) {
   return (
     <>
       <Wrapper>
@@ -531,7 +598,10 @@ function SelectNfts({ handleNext }) {
         </Select_box_container>
 
         <Box
-          onClick={handleNext}
+          onClick={() => {
+            add_data("selected 9 tiles", "small_nft", 1);
+            handleNext();
+          }}
           sx={{
             display: "flex",
             justifyContent: "center",
@@ -546,12 +616,34 @@ function SelectNfts({ handleNext }) {
   );
 }
 // frequently ask question
-function FaqSec() {
+function FaqSec({ add_data, edits_data }) {
   const router = useRouter();
+  const [qsn_, set_qsn_] = useState("");
+  const [ans_, set_ans_] = useState("");
+  const [qsn_s_arr, set_qsn_s_arr] = useState([]);
+
   const handleSubmit = async (e) => {
     e.preventDefault();
-    router.push("/template");
+
+    try {
+      const { data } = await axios({
+        url: "/api/editHomePageData",
+        method: "POST",
+        data: edits_data,
+      });
+
+      router.push("/template");
+    } catch (error) {
+      console.log("Error", error);
+    }
   };
+
+  function add_into_qsn_ans_arr(qsn, ans) {
+    let new_arr = [...qsn_s_arr, { qsn, ans }];
+    set_qsn_s_arr(new_arr);
+    add_data(new_arr, "faq_sec", 1);
+  }
+
   return (
     <>
       <Wrapper>
@@ -564,7 +656,11 @@ function FaqSec() {
             <span>Step 6</span>
             <h1>Edit Homepage</h1>
           </Step>
-          <Form onSubmit={handleSubmit}>
+          <Form
+            onSubmit={(e) => {
+              handleSubmit(e);
+            }}
+          >
             <Box
               sx={{
                 margin: "25px 0px",
@@ -577,6 +673,9 @@ function FaqSec() {
                 Question
               </label>
               <input
+                onChange={(e) => {
+                  set_qsn_(e.target.value);
+                }}
                 type="text"
                 id="heading"
                 required
@@ -595,6 +694,9 @@ function FaqSec() {
                 Answer
               </label>
               <input
+                onChange={(e) => {
+                  set_ans_(e.target.value);
+                }}
                 type="text"
                 id="Summary"
                 required
@@ -634,6 +736,9 @@ function FaqSec() {
                 Edit FAQs
               </Button>
               <Button
+                onClick={() => {
+                  add_into_qsn_ans_arr(qsn_, ans_);
+                }}
                 sx={{
                   background: "#f4b8ec",
                   border: "none",
