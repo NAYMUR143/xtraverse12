@@ -210,6 +210,7 @@ function UpdateBlurs({ handleNext, add_data }) {
                 type="text"
                 required
                 placeholder="
+
             #20BC83
               "
               />
@@ -287,6 +288,7 @@ function UpdateBlurs({ handleNext, add_data }) {
     </>
   );
 }
+
 // upload logo
 function UploadLogo({ handleNext, add_data }) {
   const [selectedImage, setSelectedImage] = useState();
