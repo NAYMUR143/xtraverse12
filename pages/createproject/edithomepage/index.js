@@ -128,7 +128,7 @@ const Select_box_container = styled.div`
 function index() {
   const [sldIndex, setSldIndex] = useState(0);
   const [step, setStep] = useState("Step 1");
-  const [wheelColorData, setWheelColorData] = useState();
+
   const handleNext = () => {
     setSldIndex(index === layouts.length - 1 ? 0 : sldIndex + 1);
   };
@@ -136,7 +136,7 @@ function index() {
     setSldIndex(index === 0 ? layouts.length - 1 : sldIndex - 1);
   };
   const layouts = [
-    <UpdateBlurs handleNext={handleNext} wheelColorData={wheelColorData} />,
+    <UpdateBlurs handleNext={handleNext} />,
     <UploadLogo handleNext={handleNext} />,
     <SetHeadingSummary handleNext={handleNext} />,
     <UpdateHeroImg handleNext={handleNext} />,
@@ -154,7 +154,7 @@ function index() {
 }
 
 // update blurs
-function UpdateBlurs({ handleNext, wheelColorData }) {
+function UpdateBlurs({ handleNext }) {
   return (
     <>
       <Wrapper>
@@ -179,6 +179,7 @@ function UpdateBlurs({ handleNext, wheelColorData }) {
                 type="text"
                 required
                 placeholder="
+
             #20BC83
               "
               />
@@ -250,6 +251,7 @@ function UpdateBlurs({ handleNext, wheelColorData }) {
     </>
   );
 }
+
 // upload logo
 function UploadLogo({ handleNext }) {
   const [selectedImage, setSelectedImage] = useState();

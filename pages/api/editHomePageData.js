@@ -1,5 +1,5 @@
 const { log } = console;
-export default function editHomePage(req, res) {
+export default function editHomepage(req, res) {
   if (req.method === "POST") {
     const nftData = req.body;
     log("Req payload", nftData);
